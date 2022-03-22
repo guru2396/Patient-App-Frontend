@@ -1,54 +1,43 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import { Switch, Route } from "react-router-dom";
+import LoginPage from './components/login.jsx';
+import RegistrationPage from './components/registration.jsx';
 
 const Home = () => {
   return (
     <>
       <Navbar />
       <section className="hero-section">
-        <p>Subscribe to </p>
-        <h1>Thapa Technical Home Page</h1>
+        <h1>Patient App Home Page</h1>
       </section>
     </>
   );
 };
 
-const About = () => {
+const Login = () => {
   return (
     <>
       <Navbar />
       <section className="hero-section">
-        <p>Welcome to </p>
-        <h1>Thapa Technical About Page</h1>
+        <LoginPage/>
       </section>
     </>
   );
 };
 
-const Service = () => {
+const Register= () => {
   return (
     <>
       <Navbar />
       <section className="hero-section">
-        <p>Welcome to </p>
-        <h1>Thapa Technical Service Page</h1>
+        <RegistrationPage/>
       </section>
     </>
   );
 };
 
-const Contact = () => {
-  return (
-    <>
-      <Navbar />
-      <section className="hero-section">
-        <p>Welcome to </p>
-        <h1>Thapa Technical Contact Page</h1>
-      </section>
-    </>
-  );
-};
+
 
 const App = () => {
   return (
@@ -57,16 +46,12 @@ const App = () => {
         <Home />
       </Route>
 
-      <Route path="/about">
-        <About />
+      <Route path="/login">
+        <Login />
       </Route>
 
-      <Route path="/service">
-        <Service />
-      </Route>
-
-      <Route path="/contact">
-        <Contact />
+      <Route path="/register">
+        <Register />
       </Route>
     </Switch>
   );

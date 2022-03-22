@@ -17,8 +17,8 @@ const Navbar = () => {
         {/* 1st logo part  */}
         <div className="logo">
           <h2>
-            <span>T</span>hapa
-            <span>T</span>echnical
+            <span>P</span>atient
+            <span>A</span>pp
           </h2>
         </div>
 
@@ -32,50 +32,16 @@ const Navbar = () => {
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/about">about</NavLink>
+              <NavLink to="/login">Login</NavLink>
             </li>
             <li>
-              <NavLink to="/service">services</NavLink>
+              <NavLink to="/register">Register</NavLink>
             </li>
-            <li>
-              <NavLink to="/contact">contact</NavLink>
-            </li>
+
           </ul>
         </div>
 
-        {/* 3rd social media links */}
-        <div className="social-media">
-          <ul className="social-media-desktop">
-            <li>
-              <a
-                href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
-                target="_thapa">
-                <FaFacebookSquare className="facebook" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/thapatechnical/"
-                target="_thapa">
-                <FaInstagramSquare className="instagram" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA"
-                target="_thapa">
-                <FaYoutubeSquare className="youtube" />
-              </a>
-            </li>
-          </ul>
-
-          {/* hamburget menu start  */}
-          <div className="hamburger-menu">
-            <a href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
-              <GiHamburgerMenu />
-            </a>
-          </div>
-        </div>
+        
       </nav>
 
       {/* hero section  */}
