@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import './registration.css';
 
 import {Form ,Button} from 'react-bootstrap'
+import axios from 'axios';
 
 class RegistrationPage extends Component{
 
@@ -25,8 +26,25 @@ class RegistrationPage extends Component{
     }
 
     submitPatientRegistration(event){
-        alert(this.state.patient_name);
+        console.log(this.state);
         event.preventDefault();
+        const headers = { 
+            "Content-Type": "application/json" ,
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+        };
+    
+        
+        
+        axios.post('http://localhost:5000/register-patient', this.state, { headers })
+         .then(response => 
+           {
+             console.log("return post method");
+             //console.log(response);
+              console.log(response);
+             // xPaths = response.data.xPaths;
+           }
+        );
     }
 
     detailsChange(event){
@@ -34,6 +52,14 @@ class RegistrationPage extends Component{
             [event.target.name]:event.target.value
         });
     }
+
+    headers = {
+        "Content-Type": "application/json"
+    };
+
+
+
+    
 
     render(){
         return (

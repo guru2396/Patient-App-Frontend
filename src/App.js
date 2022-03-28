@@ -1,10 +1,33 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import { Switch, Route } from "react-router-dom";
-import LoginPage from './components/login.jsx';
-import RegistrationPage from './components/registration.jsx';
+import LoginPage from './components/login.js';
+import RegistrationPage from './components/registration.js';
+import { Redirect } from 'react-router';
+
+let isLoggedIn = false;
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+let cookie = getCookie("patient_cookie"); 
+if(cookie!=null){
+  isLoggedIn = true;
+  //alert("cookie there");
+}
+else{
+  isLoggedIn = false;
+}
+
+
 
 const Home = () => {
+
+
+
   return (
     <>
       <Navbar />
@@ -37,6 +60,12 @@ const Register= () => {
   );
 };
 
+const Logout= () => {
+  document.cookie = "patient_cookie" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  
+  return <Redirect to = {{ pathname: "/login" }} />;
+  
+};
 
 
 const App = () => {
@@ -52,6 +81,10 @@ const App = () => {
 
       <Route path="/register">
         <Register />
+      </Route>
+
+      <Route path="/logout">
+        <Logout />
       </Route>
     </Switch>
   );
