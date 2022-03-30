@@ -7,19 +7,34 @@ class ConsentRequestsPage extends Component{
         this.state={requests: [], isLoading: true};
     }
 
+    getCookie(cName) {
+        const name = cName + "=";
+        const cDecoded = decodeURIComponent(document.cookie); //to be careful
+        const cArr = cDecoded .split('; ');
+        let res;
+        cArr.forEach(val => {
+            if (val.indexOf(name) === 0) res = val.substring(name.length);
+        })
+        return res;
+      }
+
+
+    
     componentDidMount(){
+        const token = this.getCookie('patient_cookie');
         this.setState({isLoading: true});
         fetch('http://localhost:8080/get-consent-notifications',{
             method: 'GET',
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': 'PAT_001'
+                'Authorization': `Bearer ${token}`  
               }
         }).then(response => response.json())
         .then(data => this.setState({requests: data, isLoading: false}));
     }
 
     render(){
+        
         const {requests,isLoading}=this.state;
         if(isLoading){
             return <p>Loading...</p>
