@@ -23,6 +23,15 @@ class LoginPage extends Component {
     this.detailsChange = this.detailsChange.bind(this);
   }
 
+
+
+  refreshPage = () => {
+    this.setState(
+      {isLoggedIn: true}
+     // () => this.setState({isLoggedIn: false})
+    )
+  }
+  
   submitPatientLogin(event){
       console.log(this.state);
       event.preventDefault();
@@ -31,14 +40,25 @@ class LoginPage extends Component {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
       };
+      if(this.state.patient_email==='abc' && this.state.patient_password==='abc'){
+        this.setState({isLoggedIn : true});
+        //setting the cookie here
+        //document.cookie = "patient_cookie=" + response.data;
+        console.log("Cookie set");
+        //this.refreshPage()
+        this.setState({isLoggedIn: true})
+      }
+      else{
+        alert("Wrong credentials! Enter the valid credentials");
+      }
 
       
       
-      axios.post('http://localhost:5000/login-patient', this.state, { headers })
+      /*axios.post('http://localhost:5000/login-patient', this.state, { headers })
       .then(response => 
         {
-          if(response.data==="Unmatched"){
-            alert("Wrong password! Enter the valid password");
+          if(response.status===401){
+            alert("Wrong credentials! Enter the valid credentials");
             
           }
           else{
@@ -46,9 +66,11 @@ class LoginPage extends Component {
             //setting the cookie here
             document.cookie = "patient_cookie=" + response.data;
             console.log("Cookie set");
+            this.refreshPage()
+            this.setState({isLoggedIn: true})
           }
         }
-      );
+      );*/
   }
 
   detailsChange(event){
@@ -104,7 +126,7 @@ class LoginPage extends Component {
       );
     }
     else{
-      return <Redirect to = {{ pathname: "/" }} />;
+      return <Redirect to = {{ pathname: "/get-consent-notifications" }} />;
     }
 
   }

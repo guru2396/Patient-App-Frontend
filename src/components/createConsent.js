@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 class CreateConsent extends Component{
 
     componentDidMount(){
-        
+
     }
 
     static propTypes = {
@@ -21,7 +21,7 @@ class CreateConsent extends Component{
           console.log(this.props.match.params.requestId)
         const { match, location, history } = this.props;
     
-        return <div>You are now at {this.props.match.params.requestId}</div>;
+        return <div><h2>You are now at {this.props.match.params.requestId}</h2></div>;
       }
 }
 const CreateConsentWithRouter = withRouter(CreateConsent);
