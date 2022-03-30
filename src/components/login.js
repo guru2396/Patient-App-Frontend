@@ -15,8 +15,8 @@ class LoginPage extends Component {
   constructor(props){
     super(props);
     this.state = {
-        patient_email : '',
-        patient_password : '',
+        username : '',
+        password : '',
         isLoggedIn: false
     }
     this.submitPatientLogin = this.submitPatientLogin.bind(this);
@@ -77,7 +77,7 @@ class LoginPage extends Component {
                 required
                 autoFocus
                 type="text"
-                value={this.state.patient_email}
+                value={this.state.username}
                 name = "patient_email"
                 onChange={this.detailsChange}
                 placeholder = "Email"
@@ -88,7 +88,7 @@ class LoginPage extends Component {
               <Form.Control
                 required
                 type="password"
-                value={this.state.patient_password}
+                value={this.state.password}
                 onChange={this.detailsChange}
                 placeholder="Password"
                 name="patient_password"
