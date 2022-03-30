@@ -57,6 +57,9 @@ const Navbar = () => {
                 <NavLink to="/register">Register</NavLink>
               </li>
               <li>
+                <NavLink to="/get-consent-notifications">Consent Requests</NavLink>
+              </li>
+              <li>
                 <NavLink to="/logout">Logout</NavLink>
               </li>
             </ul>

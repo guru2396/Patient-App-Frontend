@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginPage from './components/login.js';
 import RegistrationPage from './components/registration.js';
 import { Redirect } from 'react-router';
+import ConsentRequestsPage from './components/consentRequests';
 
 let isLoggedIn = false;
 
@@ -25,8 +26,6 @@ else{
 
 
 const Home = () => {
-
-
 
   return (
     <>
@@ -60,6 +59,18 @@ const Register= () => {
   );
 };
 
+const ConsentRequests= () => {
+  return (
+    <>
+      <Navbar />
+      <section className="hero-section">
+        <ConsentRequestsPage/>
+      </section>
+    </>
+  );
+};
+
+
 const Logout= () => {
   document.cookie = "patient_cookie" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   
@@ -82,7 +93,9 @@ const App = () => {
       <Route path="/register">
         <Register />
       </Route>
-
+      <Route path="/get-consent-notifications">
+        <ConsentRequests />
+      </Route>
       <Route path="/logout">
         <Logout />
       </Route>
