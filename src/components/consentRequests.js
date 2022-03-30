@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'react-bootstrap';
+import { NavLink } from "react-router-dom";
 
 class ConsentRequestsPage extends Component{
     constructor(props){
@@ -33,7 +34,8 @@ class ConsentRequestsPage extends Component{
                 <td>{request.request_info}</td>
                 <td>{request.access_purpose}</td>
                 <td>
-                    <Button size="sm" color="primary">Create Consent</Button>
+                    
+                    <NavLink to={"/create-consent/"+request.consent_request_id}>Create Consent</NavLink>
                 </td>
             </tr>
         });
