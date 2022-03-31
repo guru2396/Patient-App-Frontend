@@ -50,7 +50,7 @@ const  handlepurpose=(e) =>{    setpurpose(e.target.value);
   const submithandl=()=>{
 
     
-  let resp={
+  let data={
     "consent_request_id": "fromlink",
     "ehr_id": JSON.stringify(props.ehr_id),
     "dataCustodianId": JSON.stringify(props.dataCustodianId),
@@ -59,7 +59,33 @@ const  handlepurpose=(e) =>{    setpurpose(e.target.value);
     "delegateAccess": delegateaccess,
     "signature": signature
   }
-  console.log(resp);
+  console.log(data);
+
+
+  getCookie=(cName)=> {
+    const name = cName + "=";
+    const cDecoded = decodeURIComponent(document.cookie); //to be careful
+    const cArr = cDecoded .split('; ');
+    let res;
+    cArr.forEach(val => {
+        if (val.indexOf(name) === 0) res = val.substring(name.length);
+    })
+    return res;
+  }
+  const token=getCookie('patient_cookie');
+  const headers = { 
+    "Authorization": `Bearer ${token}` 
+  };
+ 
+
+   axios.post('http://localhost:8090/xmlUpload', data, { headers })
+    .then(response => 
+      {
+        alert(response.data);
+         console.log(response);
+      });
+
+};
 }
   return (
     
