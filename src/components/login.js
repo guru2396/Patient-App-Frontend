@@ -40,21 +40,11 @@ class LoginPage extends Component {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
       };
-      if(this.state.patient_email==='abc' && this.state.patient_password==='abc'){
-        this.setState({isLoggedIn : true});
-        //setting the cookie here
-        //document.cookie = "patient_cookie=" + response.data;
-        console.log("Cookie set");
-        //this.refreshPage()
-        this.setState({isLoggedIn: true})
-      }
-      else{
-        alert("Wrong credentials! Enter the valid credentials");
-      }
+
 
       
       
-      /*axios.post('http://localhost:5000/login-patient', this.state, { headers })
+      axios.post('http://localhost:5000/login-patient', this.state, { headers })
       .then(response => 
         {
           if(response.status===401){
@@ -70,7 +60,7 @@ class LoginPage extends Component {
             this.setState({isLoggedIn: true})
           }
         }
-      );*/
+      );
   }
 
   detailsChange(event){
@@ -100,7 +90,7 @@ class LoginPage extends Component {
                 autoFocus
                 type="text"
                 value={this.state.username}
-                name = "patient_email"
+                name = "username"
                 onChange={this.detailsChange}
                 placeholder = "Email"
               />
@@ -113,7 +103,7 @@ class LoginPage extends Component {
                 value={this.state.password}
                 onChange={this.detailsChange}
                 placeholder="Password"
-                name="patient_password"
+                name="password"
               />
             </Form.Group>
             <Button size="lg" type="submit">
