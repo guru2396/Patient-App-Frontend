@@ -5,7 +5,7 @@ import LoginPage from './components/login.js';
 import RegistrationPage from './components/registration.js';
 import { Redirect } from 'react-router';
 import ConsentRequestsPage from './components/consentRequests';
-import CreateConsent from './components/createConsent';
+import Createconsent from './components/Createconsent';
 
 let isLoggedIn = false;
 
@@ -101,8 +101,10 @@ const App = () => {
         <Logout />
       </Route>
       <Route path="/create-consent/:requestId">
-        <CreateConsent />
+        <Createconsent />
       </Route>
+     
+    
     </Switch>
   );
 };
