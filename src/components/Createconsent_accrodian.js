@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 import './Accordian.css'
 
 const Createconsent_accrodian = (props) => {
@@ -49,20 +49,20 @@ const  handlepurpose=(e) =>{    setpurpose(e.target.value);
 
   const submithandl=()=>{
 
-    
+    console.log(typeof props.id)
   let data={
-    "consent_request_id": "fromlink",
+    "consent_request_id":   props.id,
     "ehr_id": JSON.stringify(props.ehr_id),
     "dataCustodianId": JSON.stringify(props.dataCustodianId),
-    "selectedRecords": userinfo.languages,
+    "selectedRecords": [JSON.parse(userinfo.languages)],
     "purpose": purpose,
     "delegateAccess": delegateaccess,
     "signature": signature
   }
-  console.log(data);
+  console.log(data.selectedRecords);
 
 
-  getCookie=(cName)=> {
+  const getCookie=(cName)=> {
     const name = cName + "=";
     const cDecoded = decodeURIComponent(document.cookie); //to be careful
     const cArr = cDecoded .split('; ');
@@ -78,7 +78,7 @@ const  handlepurpose=(e) =>{    setpurpose(e.target.value);
   };
  
 
-   axios.post('http://localhost:8090/xmlUpload', data, { headers })
+   axios.post('http://localhost:8080/create-consent', data, { headers })
     .then(response => 
       {
         alert(response.data);
@@ -86,7 +86,7 @@ const  handlepurpose=(e) =>{    setpurpose(e.target.value);
       });
 
 };
-}
+
   return (
     
     <div className="accordion-item">
@@ -127,14 +127,13 @@ const  handlepurpose=(e) =>{    setpurpose(e.target.value);
                            <li className="encounter">Encounter Id : {encounterId}</li>
                              
                            {
-                                op_records.map(({diagnosis,op_record_id,record_details,timestamp})=>(
+                                op_records.map(({diagnosis,op_record_id,recordDetails,timestamp})=>(
                                   <div>
                                     <h3 className="encounter">OpRecords:</h3>
                                     <li className="op_records">Diagnosis : {diagnosis}</li>
                                     <li className="op_records">Op Record Id : {op_record_id}</li>
-                                    <li className="op_records">Complaints : {record_details.complaints}</li>
-                                    <li className="op_records">Prescription : {record_details.prescription}</li>  
-                                    <li className="op_records">Followup Plan : {record_details.followupplan}</li>                                       
+                                    <li className="op_records">Details : {recordDetails}</li>
+                                    <li className="op_records">Timestamp : {timestamp}</li>                                          
                                   </div>
                                 ))
                         }

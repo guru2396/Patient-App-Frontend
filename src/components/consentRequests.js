@@ -23,11 +23,11 @@ class ConsentRequestsPage extends Component{
     
     componentDidMount(){
         const token = this.getCookie('patient_cookie');
+        console.log(token);
         this.setState({isLoading: true});
         fetch('http://localhost:8080/get-consent-notifications',{
             method: 'GET',
             headers: {
-                'Access-Control-Allow-Origin': '*',
                 'Authorization': `Bearer ${token}`  
               }
         }).then(response => response.json())

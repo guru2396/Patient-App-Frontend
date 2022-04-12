@@ -62,9 +62,7 @@ const Navbar = () => {
               <li>
                 <NavLink to="/logout">Logout</NavLink>
               </li>
-              <li>
-                <NavLink to="/create-consent/:requestId">creat consent</NavLink>
-              </li>
+
             </ul>
           </div>
   

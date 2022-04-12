@@ -44,7 +44,7 @@ class LoginPage extends Component {
 
       
       
-      axios.post('http://localhost:5000/login-patient', this.state, { headers })
+      axios.post('http://localhost:8080/login-patient', this.state, { headers })
       .then(response => 
         {
           if(response.status===401){
@@ -116,7 +116,7 @@ class LoginPage extends Component {
       );
     }
     else{
-      return <Redirect to = {{ pathname: "/get-consent-notifications" }} />;
+      return <Redirect to = {{ pathname: "/" }} />;
     }
 
   }
