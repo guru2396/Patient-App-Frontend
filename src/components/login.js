@@ -47,20 +47,21 @@ class LoginPage extends Component {
       axios.post('http://localhost:8080/login-patient', this.state, { headers })
       .then(response => 
         {
-          if(response.status===401){
-            alert("Wrong credentials! Enter the valid credentials");
-            
-          }
-          else{
             this.setState({isLoggedIn : true});
             //setting the cookie here
             document.cookie = "patient_cookie=" + response.data;
             console.log("Cookie set");
             this.refreshPage()
             this.setState({isLoggedIn: true})
+        })
+        .catch(error => {
+          if(error.response.status==401){
+            alert("Wrong credentials! Enter the valid credentials");
           }
-        }
-      );
+          else{
+            alert(error.response.status);
+          }
+        });
   }
 
   detailsChange(event){
