@@ -6,8 +6,8 @@ import RegistrationPage from './components/registration.js';
 import { Redirect } from 'react-router';
 import ConsentRequestsPage from './components/consentRequests';
 import Createconsent from './components/Createconsent';
-
-
+import LoginNomineePage from './components/loginNominee';
+import AddNomineePage from './components/addNominee';
 
 
 
@@ -16,7 +16,7 @@ const Home = () => {
     <>
       <Navbar />
       <section className="hero-section">
-        <h1>Patient App Home Page</h1>
+        <h1>Home Page</h1>
       </section>
     </>
   );
@@ -43,6 +43,30 @@ const Register= () => {
     </>
   );
 };
+
+const LoginNominee= () => {
+  return (
+    <>
+      <Navbar />
+      <section className="hero-section">
+        <LoginNomineePage/>
+      </section>
+    </>
+  );
+};
+
+const AddNominee= () => {
+  return (
+    <>
+      <Navbar />
+      <section className="hero-section">
+        <AddNomineePage/>
+      </section>
+    </>
+  );
+};
+
+
 
 const ConsentRequests= (props) => {
   
@@ -122,7 +146,12 @@ const Logout= () => {
   return <Redirect to = {{ pathname: "/login" }} />;
   
 };
-
+const LogoutNominee= () => {
+  document.cookie = "nominee_cookie" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  
+  return <Redirect to = {{ pathname: "/login-nominee" }} />;
+  
+};
 
 const App = () => {
 
@@ -187,6 +216,9 @@ const App = () => {
       <Route path="/logout">
         <Logout />
       </Route>
+      <Route path="/logout-nominee">
+        <LogoutNominee />
+      </Route>
       <Route path="/create-consent/:requestId">
         <Createconsent isLoggedIn={isLoggedIn}/>
       </Route>
@@ -199,7 +231,12 @@ const App = () => {
       <Route path="/get-consent-logs">
         <ConsentLogs isLoggedIn={isLoggedIn}/>
       </Route>   
-
+      <Route path="/login-nominee">
+        <LoginNominee/>
+      </Route>  
+      <Route path="/add-nominee">
+        <AddNominee/>
+      </Route> 
     </Switch>
   );
 };
