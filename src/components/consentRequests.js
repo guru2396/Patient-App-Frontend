@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
+import axios from 'axios';
 
 class ConsentRequestsPage extends Component{
 
@@ -35,20 +36,22 @@ class ConsentRequestsPage extends Component{
         }
         console.log(token);
         this.setState({isLoading: true});
-        fetch('http://localhost:8087/get-consent-notifications',{
+        axios.get('http://localhost:8080/get-consent-notifications',{
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`  
               }
         }).then(response => {
+            console.log(response)
+            this.setState({requests: response.data, isLoading: false})
             if(response.status===403) alert("Invalid token!! Please login again and try..")
         })
-        .then(data => this.setState({requests: data, isLoading: false}));
     }
 
     render(){
         const {requests,isLoading}=this.state;
         if(this.state.isLoggedIn){
+            console.log(requests)
             if(isLoading){
                 return <p>Loading...</p>
             }

@@ -77,7 +77,6 @@ class ViewConsentsPage extends Component{
                 return <tr>
                     <td>{request.consent_id}</td>
                     <td>{request.doctor_name}</td>
-                    <td>{request.hospital_name}</td>
                     <td>{request.access_purpose}</td>
                     <td>{request.delegate_access}</td>
                     <td>{request.creation_date}</td>
@@ -98,7 +97,6 @@ class ViewConsentsPage extends Component{
                                 <tr>
                                     <th>Consent Id</th>
                                     <th>Doctor Name</th>
-                                    <th>Hospital Name</th>
                                     <th>Access Purpose</th>
                                     <th>Delegate Access</th>
                                     <th>Creation Date</th>

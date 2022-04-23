@@ -44,7 +44,7 @@ class Createconsent extends Component{
   componentDidMount(){
     console.log("Did Mount")
     const token=this.getCookie('patient_cookie')
-      axios.get('http://localhost:8087/get-ehr',{
+      axios.get('http://localhost:8080/get-ehr',{
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -81,15 +81,16 @@ class Createconsent extends Component{
       this.setState({
         languages: arr
       });
-      console.log(this.state.languages);
+      console.log("Printing type")
+      console.log(typeof this.state.languages);
     let data={
       "consent_request_id":   this.props.match.params.requestId,
       "ehr_id": JSON.stringify(this.state.resp.ehrId),
       // "dataCustodianId": JSON.stringify(props.dataCustodianId),
-      "selectedRecords": this.state.languages,
-      "purpose": this.purpose,
-      "delegateAccess": this.delegateaccess,
-      "signature": this.signature
+      "selectedRecords": arr,
+      "purpose": this.state.purpose,
+      "delegateAccess": this.state.delegateaccess,
+      "signature": this.state.signature
     }
     console.log(data.selectedRecords);
 
@@ -110,7 +111,7 @@ class Createconsent extends Component{
     };
   
 
-    axios.post('http://localhost:8090/create-consent', data, { headers })
+    axios.post('http://localhost:8080/create-consent', data, { headers })
       .then(response => 
         {
           alert(response.data);

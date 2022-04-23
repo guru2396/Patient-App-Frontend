@@ -39,7 +39,7 @@ class RegistrationPage extends Component{
     
         
         
-        axios.post('http://localhost:8087/register-patient', this.state, { headers })
+        axios.post('http://localhost:8080/register-patient', this.state, { headers })
          .then(response => 
            {
              if(response.status===200){
