@@ -9,7 +9,7 @@ import './login.css';
 
 
 
-class LoginPage extends Component {
+class LoginNomineePage extends Component {
 
 
   constructor(props){
@@ -19,7 +19,7 @@ class LoginPage extends Component {
         password : '',
         isLoggedIn: false
     }
-    this.submitPatientLogin = this.submitPatientLogin.bind(this);
+    this.submitNomineeLogin = this.submitNomineeLogin.bind(this);
     this.detailsChange = this.detailsChange.bind(this);
   }
 
@@ -32,27 +32,25 @@ class LoginPage extends Component {
     )
   }
   
-  submitPatientLogin(event){
+  submitNomineeLogin(event){
       console.log(this.state);
       event.preventDefault();
       const headers = { 
-          "Content-Type": "application/json" ,
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+          "Content-Type": "application/json"
       };
 
 
       
       
-      axios.post('http://localhost:8087/login-patient', this.state, { headers })
+      axios.post('http://localhost:8080/login-nominee', this.state, { headers })
       .then(response => 
         {
             this.setState({isLoggedIn : true});
             //setting the cookie here
-            document.cookie = "patient_cookie=" + response.data;
+            document.cookie = "nominee_cookie=" + response.data;
             console.log("Cookie set");
             this.refreshPage()
-            this.setState({isLoggedIn: true})
+            
         })
         .catch(error => {
           if(error.response.status==401){
@@ -70,9 +68,7 @@ class LoginPage extends Component {
       });
   }
 
-  headers = {
-      "Content-Type": "application/json"
-  };
+
 
 
 
@@ -82,9 +78,9 @@ class LoginPage extends Component {
     if(!this.state.isLoggedIn){
       return (
         <div className="LoginPage">
-          <h1>PATIENT LOGIN PAGE</h1>
-          <Form onSubmit={this.submitPatientLogin}>
-            <Form.Group size="lg" className="form" controlId="formBasicPatientUsername">
+          <h1>LOGIN NOMINEE PAGE</h1>
+          <Form onSubmit={this.submitNomineeLogin}>
+            <Form.Group size="lg" className="form" controlId="formBasicNomineeUsername">
               <Form.Label>Email</Form.Label>
               <Form.Control
                 required
@@ -96,7 +92,7 @@ class LoginPage extends Component {
                 placeholder = "Email"
               />
             </Form.Group>
-            <Form.Group size="lg" className="form" controlId="formBasicPatientPassword">
+            <Form.Group size="lg" className="form" controlId="formBasicNomineePassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 required
@@ -124,4 +120,4 @@ class LoginPage extends Component {
 
 }
 
-export default LoginPage;
+export default LoginNomineePage;

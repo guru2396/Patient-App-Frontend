@@ -22,6 +22,7 @@ class ConsentRequestsPage extends Component{
 
     
     componentDidMount(){
+        console.log("I am here");
         const token = this.getCookie('patient_cookie');
         console.log(token);
         this.setState({isLoading: true});
@@ -30,12 +31,13 @@ class ConsentRequestsPage extends Component{
             headers: {
                 'Authorization': `Bearer ${token}`  
               }
-        }).then(response => response.json())
+        }).then(response => {
+            if(response.status===403) alert("Invalid token!! Please login again and try..")
+        })
         .then(data => this.setState({requests: data, isLoading: false}));
     }
 
     render(){
-        
         const {requests,isLoading}=this.state;
         if(isLoading){
             return <p>Loading...</p>
