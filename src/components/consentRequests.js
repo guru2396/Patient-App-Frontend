@@ -25,7 +25,7 @@ class ConsentRequestsPage extends Component{
         const token = this.getCookie('patient_cookie');
         console.log(token);
         this.setState({isLoading: true});
-        fetch('http://localhost:8080/get-consent-notifications',{
+        fetch('http://localhost:8087/get-consent-notifications',{
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`  
