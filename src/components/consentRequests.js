@@ -3,10 +3,6 @@ import { Button, ButtonGroup, Container, Table } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 
 class ConsentRequestsPage extends Component{
-    constructor(props){
-        super(props);
-        this.state={requests: [], isLoading: true};
-    }
 
     getCookie(cName) {
         const name = cName + "=";
@@ -17,13 +13,26 @@ class ConsentRequestsPage extends Component{
             if (val.indexOf(name) === 0) res = val.substring(name.length);
         })
         return res;
-      }
+    }
+
+    constructor(props){
+        super(props);
+        this.state={
+            requests: [],
+            isLoading: true,
+            isLoggedIn : (this.getCookie('patient_cookie')!=undefined || this.getCookie('nominee_cookie')!=undefined) ? true : false
+        };
+    }
+
 
 
     
     componentDidMount(){
         console.log("I am here");
-        const token = this.getCookie('patient_cookie');
+        let token = this.getCookie('patient_cookie');
+        if(token===undefined){
+            token = this.getCookie('nominee_cookie');
+        }
         console.log(token);
         this.setState({isLoading: true});
         fetch('http://localhost:8087/get-consent-notifications',{
@@ -39,46 +48,63 @@ class ConsentRequestsPage extends Component{
 
     render(){
         const {requests,isLoading}=this.state;
-        if(isLoading){
-            return <p>Loading...</p>
+        if(this.state.isLoggedIn){
+            if(isLoading){
+                return <p>Loading...</p>
+            }
+            
+            else{
+                let requestList;
+                if(requests!==undefined){
+                    requestList=requests.map(request => {
+                        return <tr>
+                            <td>{request.consent_request_id}</td>
+                            <td>{request.doctor_name}</td>
+                            <td>{request.hospital_name}</td>
+                            <td>{request.request_info}</td>
+                            <td>{request.access_purpose}</td>
+                            <td>
+                                
+                                <NavLink to={"/create-consent/"+request.consent_request_id}>Create Consent</NavLink>
+                            </td>
+                        </tr>
+                    });
+                }
+
+        
+                return(
+                    <div>
+                        <Container fluid>
+                            <h3>Consent requests</h3>
+                            <Table className="mt-4" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+                                <thead>
+                                    <tr>
+                                        <th>Consent Request Id</th>
+                                        <th>Doctor Name</th>
+                                        <th>Hospital Name</th>
+                                        <th>Request Information</th>
+                                        <th>Access Purpose</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {requestList !== undefined ? requestList : "No Data"}
+                                </tbody>
+                            </Table>
+                        </Container>
+                    </div>
+                );
+            }
+
+        }
+        else{
+            return (
+                <div>
+                    <h1>UNAUTHORIZED</h1>
+                </div>
+            );
         }
 
-        const requestList=requests.map(request => {
-            return <tr>
-                <td>{request.consent_request_id}</td>
-                <td>{request.doctor_name}</td>
-                <td>{request.hospital_name}</td>
-                <td>{request.request_info}</td>
-                <td>{request.access_purpose}</td>
-                <td>
-                    
-                    <NavLink to={"/create-consent/"+request.consent_request_id}>Create Consent</NavLink>
-                </td>
-            </tr>
-        });
-
-        return(
-            <div>
-                <Container fluid>
-                    <h3>Consent requests</h3>
-                    <Table className="mt-4" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
-                        <thead>
-                            <tr>
-                                <th>Consent Request Id</th>
-                                <th>Doctor Name</th>
-                                <th>Hospital Name</th>
-                                <th>Request Information</th>
-                                <th>Access Purpose</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {requestList}
-                        </tbody>
-                    </Table>
-                </Container>
-            </div>
-        );
 
     }
 }

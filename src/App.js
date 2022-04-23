@@ -8,8 +8,10 @@ import ConsentRequestsPage from './components/consentRequests';
 import Createconsent from './components/Createconsent';
 import LoginNomineePage from './components/loginNominee';
 import AddNomineePage from './components/addNominee';
-
-
+import ViewConsentsPage from './components/viewConsents';
+import EHRAccessLogsPage from './components/ehrAccessLogs';
+import VerifyOtpPage from './components/otpVerification';
+import ViewEhrPage from './components/ViewEhr';
 
 const Home = () => {
   return (
@@ -55,6 +57,18 @@ const LoginNominee= () => {
   );
 };
 
+
+const ViewConsents= () => {
+  return (
+    <>
+      <Navbar />
+      <section className="hero-section">
+        <ViewConsentsPage/>
+      </section>
+    </>
+  );
+};
+
 const AddNominee= () => {
   return (
     <>
@@ -68,78 +82,51 @@ const AddNominee= () => {
 
 
 
-const ConsentRequests= (props) => {
+const ConsentRequests= () => {
   
-  return props.isLoggedIn ? (
+  return (
     <>
       <Navbar />
       <section className="hero-section">
         <ConsentRequestsPage/>
-      </section>
-    </>
-  ):(
-    <>
-      <Navbar />
-      <section className="hero-section">
-        <h1>UNAUTHORIZED</h1>
       </section>
     </>
   );
 };
 
-const ViewEhr= (props) => {
-  return props.isLoggedIn ? (
+const ViewEhr= () => {
+  return (
     <>
       <Navbar />
       <section className="hero-section">
-        <ConsentRequestsPage/>
-      </section>
-    </>
-  ):(
-    <>
-      <Navbar />
-      <section className="hero-section">
-        <h1>UNAUTHORIZED</h1>
+        <ViewEhrPage/>
       </section>
     </>
   );
 };
 
-const EhrAccessLogs= (props) => {
-  return props.isLoggedIn ? (
+const EhrAccessLogs= () => {
+  return (
     <>
       <Navbar />
       <section className="hero-section">
-        <ConsentRequestsPage/>
-      </section>
-    </>
-  ):(
-    <>
-      <Navbar />
-      <section className="hero-section">
-        <h1>UNAUTHORIZED</h1>
+        <EHRAccessLogsPage/>
       </section>
     </>
   );
 };
 
-const ConsentLogs= (props) => {
-  return props.isLoggedIn ? (
+const VerifyOtp= () => {
+  return (
     <>
       <Navbar />
       <section className="hero-section">
-        <ConsentRequestsPage/>
-      </section>
-    </>
-  ):(
-    <>
-      <Navbar />
-      <section className="hero-section">
-        <h1>UNAUTHORIZED</h1>
+        <VerifyOtpPage/>
       </section>
     </>
   );
 };
+
 const Logout= () => {
   document.cookie = "patient_cookie" + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   
@@ -211,7 +198,7 @@ const App = () => {
         <Register />
       </Route>
       <Route path="/get-consent-notifications">
-        <ConsentRequests isLoggedIn={isLoggedIn}/>
+        <ConsentRequests />
       </Route>
       <Route path="/logout">
         <Logout />
@@ -220,23 +207,26 @@ const App = () => {
         <LogoutNominee />
       </Route>
       <Route path="/create-consent/:requestId">
-        <Createconsent isLoggedIn={isLoggedIn}/>
+        <Createconsent />
+      </Route>
+      <Route path="/validate-otp/:patientId">
+        <VerifyOtp />
       </Route>
       <Route path="/get-ehr">
-        <ViewEhr isLoggedIn={isLoggedIn}/>
+        <ViewEhr />
       </Route>     
       <Route path="/get-access-logs">
-        <EhrAccessLogs isLoggedIn={isLoggedIn}/>
-      </Route> 
-      <Route path="/get-consent-logs">
-        <ConsentLogs isLoggedIn={isLoggedIn}/>
+        <EhrAccessLogs />
       </Route>   
       <Route path="/login-nominee">
-        <LoginNominee/>
+        <LoginNominee />
       </Route>  
       <Route path="/add-nominee">
-        <AddNominee/>
+        <AddNominee />
       </Route> 
+      <Route path="/view-consents">
+        <ViewConsents/>
+      </Route>
     </Switch>
   );
 };
