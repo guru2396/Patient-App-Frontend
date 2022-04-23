@@ -6,6 +6,7 @@ const Viewehr_accrodian = (props) => {
   const [isActive, setIsActive] = useState(false);
    //console.log(props.title)
    //console.log(props.content[0].episodeId)
+   console.log(props);
   return (
     <div className="accordion-item">
       <div className="accordion-title" onClick={() => setIsActive(!isActive)}>

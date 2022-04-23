@@ -54,7 +54,7 @@ class AddNomineePage extends Component {
       .then(response => 
         {
             console.log(response);
-            alert("Nominee Added SuccessFully!! Your password for login is : " + response.data);
+            alert("Nominee Added SuccessFully!! Your password for login is : " + response.data.nominee_code);
             this.setState({nomineeAddedStatus : true});
 
         })
