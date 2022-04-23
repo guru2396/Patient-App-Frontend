@@ -21,7 +21,8 @@ class RegistrationPage extends Component{
             patient_govtid_type : '',
             patient_govtid : '',
             patient_password : '',
-            isPatientRegistered : false
+            isPatientRegistered : false,
+            patientId : ''
         }
         this.submitPatientRegistration = this.submitPatientRegistration.bind(this);
         this.detailsChange = this.detailsChange.bind(this);
@@ -42,8 +43,10 @@ class RegistrationPage extends Component{
          .then(response => 
            {
              if(response.status===200){
-                 this.setState({isPatientRegistered : true})
-                 alert("Registered successfully "+response.data);
+                console.log(response)
+                this.setState({patientId : response.data})
+                this.setState({isPatientRegistered : true})
+                alert("Registered successfully "+response.data);
              }
              else{
                  alert("Error")
@@ -75,7 +78,7 @@ class RegistrationPage extends Component{
             return (
         
                 <div className="RegistrationPage">
-                    <h1>REGISTRATION PAGE</h1>
+                    <h1>PATIENT REGISTRATION PAGE</h1>
                     <Form onSubmit = {this.submitPatientRegistration}>
                         <Form.Group className="mb-3" controlId="formBasicPatientName">
                             <Form.Label>Enter Name</Form.Label>
@@ -143,7 +146,7 @@ class RegistrationPage extends Component{
             );
         }
         else{
-            return <Redirect to = {{ pathname: "/login" }} />;
+            return <Redirect to = {{ pathname: "/validate-otp/"+this.state.patientId }} />
         }
 
     }

@@ -131,11 +131,12 @@ const Navbar = () => {
                 <NavLink to="/get-ehr">View Ehr</NavLink>
               </li>
               <li>
-                <NavLink to="/get-access-logs">Ehr Access Logs</NavLink>
+                <NavLink to="/view-consents">View Consents</NavLink>
               </li>
               <li>
-                <NavLink to="/get-consent-logs">Consent Logs</NavLink>
+                <NavLink to="/get-access-logs">Ehr Access Logs</NavLink>
               </li>
+
               <li>
                 <NavLink to="/add-nominee">Add Nominee</NavLink>
               </li>
@@ -181,7 +182,7 @@ const Navbar = () => {
                 <NavLink to="/get-access-logs">Ehr Access Logs</NavLink>
               </li>
               <li>
-                <NavLink to="/get-consent-logs">Consent Logs</NavLink>
+                <NavLink to="/view-consents">View Consents</NavLink>
               </li>
               <li>
                 <NavLink to="/logout-nominee">Logout</NavLink>
