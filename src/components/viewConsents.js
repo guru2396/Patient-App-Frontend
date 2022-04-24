@@ -81,15 +81,15 @@ class ViewConsentsPage extends Component{
                     <td>{request.delegate_access}</td>
                     <td>{request.creation_date}</td>
                     <td>{request.validity}</td>
-                    <td>
+                    <td style={{"padding":"0", "width":"200"}}>
                         
-                        <Button value={request.consent_id} onClick={this.revoke}>Revoke Consent</Button>
+                        <Button value={request.consent_id} style={{"padding":"0","margin":"0"}} size="lg" onClick={this.revoke}>Revoke Consent</Button>
                     </td>
                 </tr>
             });
     
             return(
-                <div>
+                <div className="tableDiv" style={{"overflow":"auto", "width":"70vw"}}>
                     <Container fluid>
                         <h3>VIEW CONSENSTS</h3>
                         <Table className="mt-4" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>

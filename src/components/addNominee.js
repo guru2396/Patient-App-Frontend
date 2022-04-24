@@ -131,7 +131,7 @@ class AddNomineePage extends Component {
         );
       }
       else{
-        return <Redirect to = {{ pathname: "/login-nominee" }} />;
+        return <Redirect to = {{ pathname: "/" }} />;
       }
 
     }
