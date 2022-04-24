@@ -1,0 +1,15 @@
+input{
+    width:250px;
+    height:40px;
+    font-size:2rem;
+}
+Button{
+    width:250px !important;
+}
+.accordian{
+    overflow-y:auto !important;
+    
+}
+body{
+    
+}

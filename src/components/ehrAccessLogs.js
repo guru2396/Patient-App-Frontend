@@ -67,9 +67,9 @@ class EHRAccessLogsPage extends Component{
             });
     
             return(
-                <div className="tableDiv" style={{"overflow":"auto"}}>
+                <div className="tableDiv" style={{"overflow":"auto","width":"70vw"}}>
                     <Container fluid>
-                        <h3>ACCESS LOGS</h3>
+                        <h1>ACCESS LOGS</h1>
                         <Table className="mt-4" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                             <thead>
                                 <tr>

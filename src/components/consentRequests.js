@@ -76,9 +76,9 @@ class ConsentRequestsPage extends Component{
 
         
                 return(
-                    <div>
+                    <div style={{"width":"70vw","font-size":"1.2rem"}}>
                         <Container fluid>
-                            <h3>Consent requests</h3>
+                            <h1>CONSENT REQUESTS</h1>
                             <Table className="mt-4" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                                 <thead>
                                     <tr>

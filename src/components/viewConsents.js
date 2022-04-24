@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
-
+import './viewconsent.css';
 class ViewConsentsPage extends Component{
 
     getCookie(cName) {
@@ -81,17 +81,17 @@ class ViewConsentsPage extends Component{
                     <td>{request.delegate_access}</td>
                     <td>{request.creation_date}</td>
                     <td>{request.validity}</td>
-                    <td style={{"padding":"0", "width":"200"}}>
+                    <td style={{"margin":"0 auto","width":"80"}}>
                         
-                        <Button value={request.consent_id} style={{"padding":"0","margin":"0"}} size="lg" onClick={this.revoke}>Revoke Consent</Button>
+                        <Button value={request.consent_id}  size="lg" onClick={this.revoke}>Revoke Consent</Button>
                     </td>
                 </tr>
             });
     
             return(
-                <div className="tableDiv" style={{"overflow":"auto", "width":"70vw"}}>
+                <div className="tableDiv" style={{"overflow":"auto", "width":"80vw"}}>
                     <Container fluid>
-                        <h3>VIEW CONSENSTS</h3>
+                        <h1>VIEW CONSENSTS</h1>
                         <Table className="mt-4" style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
                             <thead>
                                 <tr>

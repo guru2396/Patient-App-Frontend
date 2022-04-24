@@ -5,7 +5,7 @@ import LoginPage from './components/login.js';
 import RegistrationPage from './components/registration.js';
 import { Redirect } from 'react-router';
 import ConsentRequestsPage from './components/consentRequests';
-import Createconsent from './components/Createconsent';
+import CreateConsentsPage from './components/Createconsent';
 import LoginNomineePage from './components/loginNominee';
 import AddNomineePage from './components/addNominee';
 import ViewConsentsPage from './components/viewConsents';
@@ -64,6 +64,16 @@ const ViewConsents= () => {
       <Navbar />
       <section className="hero-section">
         <ViewConsentsPage/>
+      </section>
+    </>
+  );
+};
+const CreateConsent= () => {
+  return (
+    <>
+      <Navbar />
+      <section className="hero-section">
+        <CreateConsentsPage/>
       </section>
     </>
   );
@@ -207,7 +217,7 @@ const App = () => {
         <LogoutNominee />
       </Route>
       <Route path="/create-consent/:requestId">
-        <Createconsent />
+        <CreateConsent />
       </Route>
       <Route path="/validate-otp/:patientId">
         <VerifyOtp />
