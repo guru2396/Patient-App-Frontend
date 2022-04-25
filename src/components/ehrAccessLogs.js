@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
-
+import axios from 'axios';
 
 class EHRAccessLogsPage extends Component{
 
@@ -21,7 +21,7 @@ class EHRAccessLogsPage extends Component{
         this.state={
             requests: [], 
             isLoading: true,
-            isLoggedIn : (this.getCookie('patient_cookie')!=undefined || this.getCookie('nominee_cookie')!=undefined) ? true : false
+            isLoggedIn : false
             
         };
     }
@@ -35,36 +35,58 @@ class EHRAccessLogsPage extends Component{
         if(token===undefined){
             token = this.getCookie('nominee_cookie');
         }
-        console.log(token);
-        //this.setState({isLoading: true});
-        fetch('http://localhost:8080/get-access-logs',{
-            method: 'GET',
+
+
+        axios.get('http://localhost:8080/get-access-logs',{
             headers: {
-                'Authorization': `Bearer ${token}`  
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then(response => 
+            {
+                console.log(response);
+              if(response.status===200){
+                
+                // alert("Registered successfully "+response.data);
+                this.setState({isLoggedIn: true});
+                this.setState({requests:response.data,isLoading:false})
+                
               }
-        }).then(response => response.json())
-        .then(data => this.setState({requests: data, isLoading: false}));
+              else{
+                this.setState({isLoggedIn: false});
+                alert("Error : " + response.status);
+              }
+            }
+          )
+          .catch(err =>{
+              alert(err);
+          });
+
+
+
     }
 
     render(){
         
         const {requests,isLoading}=this.state;
         if(this.state.isLoggedIn){
-            if(isLoading){
-                return <p>Loading...</p>
-            }
+
     
-            const requestList=requests.map(request => {
-                return <tr>
-                    <td>{request.log_id}</td>
-                    <td>{request.doctor_name}</td>
-                    <td>{request.hospital_name}</td>
-                    <td>{request.consent_id}</td>
-                    <td>{request.access_details}</td>
-                    <td>{request.access_purpose}</td>
-                    <td>{request.timestamp}</td>
-                </tr>
-            });
+            let requestList;
+            if(requests!==undefined){
+                requestList = requests.map(request => {
+                    return <tr>
+                        <td>{request.log_id}</td>
+                        <td>{request.doctor_name}</td>
+                        <td>{request.hospital_name}</td>
+                        <td>{request.consent_id}</td>
+                        <td>{request.access_details}</td>
+                        <td>{request.access_purpose}</td>
+                        <td>{request.timestamp}</td>
+                    </tr>
+                });
+            }
+
     
             return(
                 <div className="tableDiv" style={{"overflow":"auto","width":"70vw"}}>

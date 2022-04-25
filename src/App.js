@@ -12,6 +12,7 @@ import ViewConsentsPage from './components/viewConsents';
 import EHRAccessLogsPage from './components/ehrAccessLogs';
 import VerifyOtpPage from './components/otpVerification';
 import ViewEhrPage from './components/ViewEhr';
+import ViewConsentRecordsPage from './components/viewConsentRecords';
 
 const Home = () => {
   return (
@@ -68,6 +69,19 @@ const ViewConsents= () => {
     </>
   );
 };
+
+const ViewConsentRecords= (props) => {
+  
+  return (
+    <>
+      <Navbar />
+      <section className="hero-section">
+        <ViewConsentRecordsPage {...props}/>
+      </section>
+    </>
+  );
+};
+
 const CreateConsent= () => {
   return (
     <>
@@ -237,6 +251,8 @@ const App = () => {
       <Route path="/view-consents">
         <ViewConsents/>
       </Route>
+      <Route path="/view-consent-record" render={(props) => <ViewConsentRecords {...props}/>}/>
+
     </Switch>
   );
 };

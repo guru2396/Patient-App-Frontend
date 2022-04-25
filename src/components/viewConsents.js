@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
+import { Redirect } from 'react-router';
 import './viewconsent.css';
+import { withRouter } from "react-router";
+
 class ViewConsentsPage extends Component{
 
     getCookie(cName) {
@@ -21,9 +24,12 @@ class ViewConsentsPage extends Component{
         this.state={
             requests: [], 
             isLoading: true,
-            isLoggedIn : (this.getCookie('patient_cookie')!=undefined || this.getCookie('nominee_cookie')!=undefined) ? true : false
+            viewRecords : false,
+            sendThis : {"name":"Iash","Roll":"James"},
+            isLoggedIn : false
         };
         this.revoke=this.revoke.bind(this);
+        this.view=this.view.bind(this);
     }
 
 
@@ -35,15 +41,37 @@ class ViewConsentsPage extends Component{
         if(token===undefined){
             token = this.getCookie('nominee_cookie');
         }
-        this.setState({isLoading: true});
-        fetch('http://localhost:8080/retrieve-consents',{
-            method: 'GET',
+        
+        axios.get('http://localhost:8080/retrieve-consents',{
             headers: {
-                'Authorization': `Bearer ${token}`  
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then(response => 
+            {
+              if(response.status===200){
+                
+                // alert("Registered successfully "+response.data);
+                this.setState({isLoggedIn: true});
+                this.setState({requests:response.data,isLoading:false})
+                
               }
-        }).then(response => response.json())
-        .then(data => this.setState({requests: data, isLoading: false}));
+              else{
+                this.setState({isLoggedIn: false});
+                alert("Error : " + response.status);
+              }
+            }
+          );
+
+
     }
+
+
+    view(){
+        console.log(this.state.sendThis)
+        this.setState({viewRecords:true});
+    }
+
 
     revoke(e){
      console.log(e.target.value);
@@ -69,9 +97,10 @@ class ViewConsentsPage extends Component{
         
         const {requests,isLoading}=this.state;
         if(this.state.isLoggedIn){
-            if(isLoading){
-                return <p>Loading...</p>
+            if(this.state.viewRecords){
+                return <Redirect to = {{ pathname: "/view-consent-record",state: { obj:  this.state.sendThis} }} />
             }
+
     
             const requestList=requests.map(request => {
                 return <tr>
@@ -81,9 +110,13 @@ class ViewConsentsPage extends Component{
                     <td>{request.delegate_access}</td>
                     <td>{request.creation_date}</td>
                     <td>{request.validity}</td>
-                    <td style={{"margin":"0 auto","width":"80"}}>
+                    <td style={{"margin":"0 auto","width":"100"}}>
                         
-                        <Button value={request.consent_id}  size="lg" onClick={this.revoke}>Revoke Consent</Button>
+                        <Button className="buttonsize" value={request.consent_id}  size="lg" onClick={this.revoke}>Revoke </Button>
+                    </td>
+                    <td style={{"margin":"0 auto","width":"100"}}>
+                        
+                        <Button className="buttonsize" value={request.consent_id}  size="lg" onClick={this.view}>View</Button>
                     </td>
                 </tr>
             });
@@ -101,6 +134,8 @@ class ViewConsentsPage extends Component{
                                     <th>Delegate Access</th>
                                     <th>Creation Date</th>
                                     <th>Validity</th>
+                                    <th>Revoke Consent</th>
+                                    <th>View Consent</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -123,4 +158,6 @@ class ViewConsentsPage extends Component{
     }
 }
 
-export default ViewConsentsPage;
+//export default ViewConsentsPage;
+const CreateConsentWithRouter = withRouter(ViewConsentsPage);
+export default CreateConsentWithRouter;
