@@ -24,12 +24,11 @@ class ViewConsentsPage extends Component{
         this.state={
             requests: [], 
             isLoading: true,
-            viewRecords : false,
-            sendThis : {"name":"Iash","Roll":"James"},
+            viewRecords : false,            
             isLoggedIn : false
         };
         this.revoke=this.revoke.bind(this);
-        this.view=this.view.bind(this);
+
     }
 
 
@@ -52,6 +51,10 @@ class ViewConsentsPage extends Component{
               if(response.status===200){
                 
                 // alert("Registered successfully "+response.data);
+                console.log("ALL RESPONSES");
+                console.log(response.data);
+                console.log(this.state.viewRecords)
+                this.setState({sendThis:response.data.dataCustodians});
                 this.setState({isLoggedIn: true});
                 this.setState({requests:response.data,isLoading:false})
                 
@@ -67,10 +70,6 @@ class ViewConsentsPage extends Component{
     }
 
 
-    view(){
-        console.log(this.state.sendThis)
-        this.setState({viewRecords:true});
-    }
 
 
     revoke(e){
@@ -97,6 +96,7 @@ class ViewConsentsPage extends Component{
         
         const {requests,isLoading}=this.state;
         if(this.state.isLoggedIn){
+            console.log(this.state.viewRecords)
             if(this.state.viewRecords){
                 return <Redirect to = {{ pathname: "/view-consent-record",state: { obj:  this.state.sendThis} }} />
             }
@@ -116,7 +116,7 @@ class ViewConsentsPage extends Component{
                     </td>
                     <td style={{"margin":"0 auto","width":"100"}}>
                         
-                        <Button className="buttonsize" value={request.consent_id}  size="lg" onClick={this.view}>View</Button>
+                        <Button className="buttonsize"  size="lg" onClick={()=>{this.setState({sendThis:request.dataCustodians});this.setState({viewRecords:true})}}>View</Button>
                     </td>
                 </tr>
             });
