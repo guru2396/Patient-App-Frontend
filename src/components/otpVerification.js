@@ -101,7 +101,7 @@ class VerifyOtpPage extends Component {
       );
     }
     else{
-      return <Redirect to = {{ pathname: "/login-patient" }} />;
+      return <Redirect to = {{ pathname: "/login" }} />;
     }
 
   }
