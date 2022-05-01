@@ -30,7 +30,10 @@ class ViewEhrPage extends Component {
 
   componentDidMount(){
     console.log("Did Mount")
-    const token=this.getCookie('patient_cookie')
+    let token=this.getCookie('patient_cookie')
+    if(token===undefined){
+      token = this.getCookie('nominee_cookie');
+    }
       axios.get('http://localhost:8080/get-ehr',{
         headers: {
           'Authorization': `Bearer ${token}`

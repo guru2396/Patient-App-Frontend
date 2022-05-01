@@ -80,7 +80,6 @@ class EHRAccessLogsPage extends Component{
                         <td>{request.doctor_name}</td>
                         <td>{request.hospital_name}</td>
                         <td>{request.consent_id}</td>
-                        <td>{request.access_details}</td>
                         <td>{request.access_purpose}</td>
                         <td>{request.timestamp}</td>
                     </tr>
@@ -99,7 +98,6 @@ class EHRAccessLogsPage extends Component{
                                     <th>Doctor Name</th>
                                     <th>Hospital Name</th>
                                     <th>Consent Id</th>
-                                    <th>Access Details</th>
                                     <th>Access Purpose</th>
                                     <th>Timestamp</th>
                                 </tr>
